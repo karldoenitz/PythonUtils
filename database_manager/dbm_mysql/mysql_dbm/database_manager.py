@@ -4,7 +4,6 @@ import MySQLdb
 import MySQLdb.cursors
 import logging
 import json
-from config import *
 
 
 class DatabaseManager(object):
