@@ -1,4 +1,29 @@
 # -*-encoding:utf-8-*-
+"""
+
+database_manager
+~~~~~~~~~~~~~~~~~~
+
+introduction
+use this module to operate sqlite database,
+execute sql or save data to database.
+
+Usage
+=====
+>>> from database_manager.sqlite_dbm.database_manager import DataBaseManager
+>>> db_manager = DataBaseManager()
+>>> db_manager.execute("SELECT id, name FROM user_info WHERE id = 3")
+[{'id': 3, 'name': 'Alice'}]
+>>> db_manager.save(
+...     "user_info",
+...     {
+...         "id": 6,
+...         "name": "Ada"
+...     }
+... )
+6
+
+"""
 import sqlite3
 import logging
 import json
@@ -13,17 +38,37 @@ class DataBaseManager(object):
 
     @classmethod
     def __dict_factory(cls, cursor, row):
+        """convert sqlite3 select result to dict
+
+        :param cursor: sqlite3's cursor
+        :param row: select result
+        :return: a dict contains the data of a record
+
+        """
         d = {}
         for idx, col in enumerate(cursor.description):
             d[col[0]] = row[idx]
         return d
 
     def execute(self, sql):
+        """execute sql
+
+        :param sql: sql will be executed
+        :return: execute result
+
+        """
         results = self.cursor.execute(sql)
         results = results.fetchall()
         return results
 
     def save(self, table_name, record_dict):
+        """
+
+        :param table_name: table's name
+        :param record_dict: a dict contains data
+        :return: the last record id, if save failed return 0
+
+        """
         self.logger.info(json.dumps(record_dict, ensure_ascii=False))
         sql_template = "INSERT INTO %s (%s) VALUES (%s)"
         column_name_list = record_dict.keys()

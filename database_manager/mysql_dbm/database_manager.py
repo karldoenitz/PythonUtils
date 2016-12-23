@@ -1,5 +1,29 @@
 # -*-encoding:utf-8-*-
+"""
 
+database_manager
+~~~~~~~~~~~~~~~~~~
+
+introduction
+use this module to operate MySQL database,
+execute sql or save data to database.
+
+Usage
+=====
+>>> from database_manager.mysql_dbm.database_manager import DatabaseManager
+>>> db_manager = DatabaseManager()
+>>> db_manager.execute("SELECT id, name FROM user_info WHERE id = 3")
+[{'id': 3, 'name': 'Alice'}]
+>>> db_manager.save(
+...     "user_info",
+...     {
+...         "id": 6,
+...         "name": "Ada"
+...     }
+... )
+6
+
+"""
 import MySQLdb
 import MySQLdb.cursors
 import logging
@@ -21,6 +45,12 @@ class DatabaseManager(object):
         self.cursor = self.connection.cursor()
 
     def query(self, sql):
+        """ execute a sql query
+
+        :param sql: sql query
+        :return: query result
+
+        """
         try:
             self.logger.info(sql)
             self.cursor.execute(sql)
@@ -31,6 +61,12 @@ class DatabaseManager(object):
             return {}
 
     def execute(self, sql):
+        """execute sql
+
+        :param sql: sql will be executed
+        :return: execute result, True or False
+
+        """
         try:
             self.logger.info(sql)
             self.cursor.execute(sql)
@@ -45,6 +81,14 @@ class DatabaseManager(object):
         self.connection.close()
 
     def save(self, table_name, record_dict, is_insert_id=False):
+        """save a dict to database
+
+        :param table_name: table's name
+        :param record_dict: a dict contains the data of a record
+        :param is_insert_id: whether need return last record id
+        :return: the last record id, if save failed return 0
+
+        """
         self.logger.info(json.dumps(record_dict, ensure_ascii=False))
         sql_template = "INSERT INTO %s (%s) VALUES (%s)"
         column_name_list = record_dict.keys()
