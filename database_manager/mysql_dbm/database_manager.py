@@ -12,7 +12,7 @@ Usage
 =====
 >>> from database_manager.mysql_dbm.database_manager import DatabaseManager
 >>> db_manager = DatabaseManager()
->>> db_manager.execute("SELECT id, name FROM user_info WHERE id = 3")
+>>> db_manager.query("SELECT id, name FROM user_info WHERE id = 3")
 [{'id': 3, 'name': 'Alice'}]
 >>> db_manager.save(
 ...     "user_info",
