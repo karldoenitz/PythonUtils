@@ -28,6 +28,8 @@ import json
 import logging
 import sqlite3
 
+from ..utils import *
+
 
 class DataBaseManager(object):
     def __init__(self):
@@ -38,7 +40,7 @@ class DataBaseManager(object):
 
     @classmethod
     def __dict_factory(cls, cursor, row):
-        """convert sqlite3 select result to dict
+        """ convert sqlite3 select result to dict
 
         :param cursor: sqlite3's cursor
         :param row: select result
@@ -51,7 +53,7 @@ class DataBaseManager(object):
         return d
 
     def execute(self, sql):
-        """execute sql
+        """ execute sql
 
         :param sql: sql will be executed
         :return: execute result
@@ -60,6 +62,16 @@ class DataBaseManager(object):
         results = self.cursor.execute(sql)
         results = results.fetchall()
         return results
+
+    def query_obj(self, sql):
+        """ execute sql
+        
+        :param sql: sql will be executed
+        :return: execute result, contains objects
+        
+        """
+        result = [dict_to_object("QueryResultObject", data) for data in self.execute(sql)]
+        return result
 
     def save(self, table_name, record_dict):
         """

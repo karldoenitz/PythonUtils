@@ -29,6 +29,8 @@ import logging
 import MySQLdb
 import MySQLdb.cursors
 
+from ..utils import *
+
 
 class DatabaseManager(object):
     def __init__(self):
@@ -60,8 +62,24 @@ class DatabaseManager(object):
             self.logger.error(e)
             return {}
 
+    def query_obj(self, sql):
+        """ execute a sql query and return an object
+        
+        :param sql: sql query
+        :return: query result
+        
+        """
+        try:
+            self.logger.info(sql)
+            self.cursor.execute(sql)
+            result = [dict_to_object("QueryResultObject", data) for data in self.cursor.fetchall()]
+            return result
+        except Exception, e:
+            self.logger.error(e)
+            return {}
+
     def execute(self, sql):
-        """execute sql
+        """ execute sql
 
         :param sql: sql will be executed
         :return: execute result, True or False
@@ -81,7 +99,7 @@ class DatabaseManager(object):
         self.connection.close()
 
     def save(self, table_name, record_dict, is_insert_id=False):
-        """save a dict to database
+        """ save a dict to database
 
         :param table_name: table's name
         :param record_dict: a dict contains the data of a record
