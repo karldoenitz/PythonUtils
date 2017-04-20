@@ -24,10 +24,10 @@ Usage
 6
 
 """
+import json
+import logging
 import MySQLdb
 import MySQLdb.cursors
-import logging
-import json
 
 
 class DatabaseManager(object):

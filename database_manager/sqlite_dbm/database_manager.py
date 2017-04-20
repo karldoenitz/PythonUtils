@@ -24,9 +24,9 @@ Usage
 6
 
 """
-import sqlite3
-import logging
 import json
+import logging
+import sqlite3
 
 
 class DataBaseManager(object):
