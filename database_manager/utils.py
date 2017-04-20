@@ -19,6 +19,15 @@ Usage
 User
 >>> print user_obj.name
 Ada Wong
+>>> class User(object):
+...     name = "Ada Wong"
+...     age = 18
+...     gender = "female"
+...
+>>> user = User()
+>>> user.age = 16
+>>> print object_to_dict(user)
+{'name': 'Ada Wong', 'age': 16, 'gender': 'female'}
 
 """
 
@@ -34,6 +43,17 @@ def dict_to_object(class_name, dictionary):
     
     """
     return type(class_name, (object,), dictionary)()
+
+
+def object_to_dict(obj):
+    """ convert an object to a dictionary
+    
+    :param obj: the object will be converted to a dictionary
+    :return: the dictionary converted from an object
+    
+    """
+    dictionary = dict((name, getattr(obj, name)) for name in dir(obj) if not name.startswith('__'))
+    return dictionary
 
 
 def add_slashes(s):
