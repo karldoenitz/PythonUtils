@@ -34,3 +34,15 @@ def dict_to_object(class_name, dictionary):
     
     """
     return type(class_name, (object,), dictionary)()
+
+
+def add_slashes(s):
+    """ add slashes to a string
+    
+    :param s: the string will be slashed
+    :return: the string add slashes
+    
+    """
+    d = {'"': '\\"', "'": "\\'"}
+    s = s.decode()
+    return ''.join(d.get(c, c) for c in s)
