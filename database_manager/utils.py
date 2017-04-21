@@ -31,6 +31,8 @@ Ada Wong
 
 """
 
+import types
+
 __author__ = "karlvorndoenitz@gmail.com"
 
 
@@ -52,7 +54,13 @@ def object_to_dict(obj):
     :return: the dictionary converted from an object
     
     """
-    dictionary = dict((name, getattr(obj, name)) for name in dir(obj) if not name.startswith('__'))
+    dictionary = dict(
+        (name, getattr(obj, name)) for name in dir(obj)
+        if not name.startswith('__')
+        and not isinstance(getattr(obj, name), types.FunctionType)
+        and not isinstance(getattr(obj, name), types.MethodType)
+        and not isinstance(getattr(obj, name), types.ClassType)
+    )
     return dictionary
 
 
