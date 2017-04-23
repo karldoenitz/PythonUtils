@@ -32,6 +32,7 @@ Ada Wong
 """
 
 import types
+from fields import Field
 
 __author__ = "karlvorndoenitz@gmail.com"
 
@@ -60,6 +61,20 @@ def object_to_dict(obj):
         and not isinstance(getattr(obj, name), types.FunctionType)
         and not isinstance(getattr(obj, name), types.MethodType)
         and not isinstance(getattr(obj, name), types.ClassType)
+    )
+    return dictionary
+
+
+def obj_field_to_dict(obj):
+    """ convert object's Field Type Attributes to a dictionary
+    
+    :param obj: the object will be converted to a dictionary
+    :return: the dictionary converted from an object
+    
+    """
+    dictionary = dict(
+        (name, getattr(obj, name)) for name in dir(obj)
+        if isinstance(getattr(obj, name), Field)
     )
     return dictionary
 
