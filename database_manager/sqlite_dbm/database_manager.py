@@ -74,7 +74,7 @@ class DataBaseManager(object):
         result = [dict_to_object(model_name, data) for data in self.execute(sql)]
         return result
 
-    def save(self, table_name, record_dict):
+    def save(self, table_name, record_dict, is_insert_id=False):
         """
 
         :param table_name: table's name
@@ -106,6 +106,8 @@ class DataBaseManager(object):
             self.cursor.execute(sql)
             self.cursor.execute(sql)
             self.connection.commit()
+            if not is_insert_id:
+                return
             return self.cursor.lastrowid
         except Exception, e:
             self.logger.error(e)
