@@ -54,8 +54,11 @@ class Model(object):
             else:
                 value = str(value)
             condition_list.append("%s=%s" % (column_name, value))
-        condition = " and ".join(condition_list)
-        sql = "SELECT * FROM %s WHERE %s" % (table_name, condition)
+        if condition_list:
+            condition = " WHERE " + " AND ".join(condition_list)
+        else:
+            condition = ""
+        sql = "SELECT * FROM %s %s" % (table_name, condition)
         result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
 
