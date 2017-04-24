@@ -62,17 +62,18 @@ class DatabaseManager(object):
             self.logger.error(e)
             return {}
 
-    def query_obj(self, sql):
+    def query_obj(self, sql, model_name="QueryResultObject"):
         """ execute a sql query and return an object
         
         :param sql: sql query
+        :param model_name: model's name, default QueryResultObject
         :return: query result
         
         """
         try:
             self.logger.info(sql)
             self.cursor.execute(sql)
-            result = [dict_to_object("QueryResultObject", data) for data in self.cursor.fetchall()]
+            result = [dict_to_object(model_name, data) for data in self.cursor.fetchall()]
             return result
         except Exception, e:
             self.logger.error(e)

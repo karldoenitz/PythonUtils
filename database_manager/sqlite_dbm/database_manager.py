@@ -63,14 +63,15 @@ class DataBaseManager(object):
         results = results.fetchall()
         return results
 
-    def query_obj(self, sql):
+    def query_obj(self, sql, model_name="QueryResultObject"):
         """ execute sql
         
         :param sql: sql will be executed
+        :param model_name: model's name, default QueryResultObject
         :return: execute result, contains objects
         
         """
-        result = [dict_to_object("QueryResultObject", data) for data in self.execute(sql)]
+        result = [dict_to_object(model_name, data) for data in self.execute(sql)]
         return result
 
     def save(self, table_name, record_dict):
