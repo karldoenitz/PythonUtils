@@ -79,6 +79,7 @@ class DataBaseManager(object):
 
         :param table_name: table's name
         :param record_dict: a dict contains data
+        :param is_insert_id: whether return last insert id
         :return: the last record id, if save failed return 0
 
         """
@@ -103,7 +104,6 @@ class DataBaseManager(object):
         sql = sql_template % (table_name, column_names, column_values)
         self.logger.info(sql)
         try:
-            self.cursor.execute(sql)
             self.cursor.execute(sql)
             self.connection.commit()
             if not is_insert_id:
