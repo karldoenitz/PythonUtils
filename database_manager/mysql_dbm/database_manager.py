@@ -33,15 +33,15 @@ from ..utils import *
 
 
 class DatabaseManager(object):
-    def __init__(self):
+    def __init__(self, host, port, user, pwd, db, charset="utf8"):
         self.logger = logging.getLogger()
         self.connection = MySQLdb.connect(
-            host="",
-            port="",
-            user="",
-            passwd="",
-            db="",
-            charset="utf8",
+            host=host,
+            port=port,
+            user=user,
+            passwd=pwd,
+            db=db,
+            charset=charset,
             cursorclass=MySQLdb.cursors.DictCursor
         )
         self.cursor = self.connection.cursor()

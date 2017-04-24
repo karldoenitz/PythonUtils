@@ -32,9 +32,9 @@ from ..utils import *
 
 
 class DataBaseManager(object):
-    def __init__(self):
+    def __init__(self, db=":memory:"):
         self.logger = logging.getLogger()
-        self.connection = sqlite3.connect(":memory:")
+        self.connection = sqlite3.connect(db)
         self.connection.row_factory = self.__dict_factory
         self.cursor = self.connection.cursor()
 
