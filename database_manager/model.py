@@ -1,7 +1,6 @@
 # -*-encoding:utf-8-*-
 
-from mysql_dbm.database_manager import DatabaseManager
-from utils import obj_field_to_dict
+from utils import object_to_dict
 
 __author__ = "karlvorndoenitz@gmail.com"
 
@@ -15,8 +14,8 @@ class Model(object):
         
         """
         table_name = self.Meta.table_name
-        attr_dict = obj_field_to_dict(self)
-        return DatabaseManager.save(table_name, attr_dict, True)
+        attr_dict = object_to_dict(self)
+        return self.Meta.engine.save(table_name, attr_dict, True)
 
     def get(self, **kwargs):
         """ get a record from db
@@ -25,7 +24,7 @@ class Model(object):
         :return: result or Exception
         
         """
-        result = self.filter(kwargs)
+        result = self.filter(**kwargs)
         if len(result) == 1:
             return result[0]
         else:
@@ -54,11 +53,12 @@ class Model(object):
             condition_list.append("%s=%s" % (column_name, value))
         condition = " and ".join(condition_list)
         sql = "SELECT * FROM %s WHERE %s" % (table_name, condition)
-        result = DatabaseManager.query_obj(sql, self.__class__.__name__)
+        result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
 
     def create(self):
         pass
 
     class Meta:
-        pass
+        table_name = None
+        engine = None
