@@ -3,7 +3,7 @@
 
 """
 
-from utils import object_to_dict
+from utils import object_to_dict, obj_field_to_dict
 
 __author__ = "karlvorndoenitz@gmail.com"
 
@@ -62,8 +62,16 @@ class Model(object):
         result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
 
-    def create(self):
-        pass
+    @classmethod
+    def create(cls):
+        try:
+            obj_field_dict = obj_field_to_dict(cls)
+            sql = "(%s)" % ",".join([obj_field_dict[key].to_create(key) for key in obj_field_dict])
+            create_sql = "CREATE TABLE %s %s" % (cls.Meta.table_name, sql)
+            cls.Meta.engine.execute(create_sql)
+            return True
+        except Exception, e:
+            raise e
 
     class Meta:
         table_name = None

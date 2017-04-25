@@ -61,6 +61,7 @@ def object_to_dict(obj):
         and not isinstance(getattr(obj, name), types.FunctionType)
         and not isinstance(getattr(obj, name), types.MethodType)
         and not isinstance(getattr(obj, name), types.ClassType)
+        and not isinstance(getattr(obj, name), Field)
     )
     return dictionary
 
