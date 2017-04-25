@@ -1,6 +1,21 @@
 # -*-encoding:utf-8-*-
 """
 
+model
+~~~~~~
+
+introduction
+this module is the base module of ORM.
+
+Usage
+=====
+>>> from fields import CharField, IntegerField
+>>> class Character(Model):
+...     name = CharField(default="", null=False, length=16)
+...     age = IntegerField(default=None, null=True, length=3)
+...     class Meta:
+...         table_name = "character"
+
 """
 
 from utils import object_to_dict, obj_field_to_dict
