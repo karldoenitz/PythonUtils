@@ -1,6 +1,22 @@
 # -*-encoding:utf-8-*-
 """
 
+engine
+~~~~~~
+
+introduction
+this module supply database engine.
+
+Usage
+=====
+>>> from model import Model
+>>> engine = Engine(EngineName.sqLite, sqlite="test.sqlite").create()
+>>> class User(Model):
+...    class Meta:
+...        engine = engine
+...        table_name = "user"
+>>>
+
 """
 from database_manager.mysql_dbm.database_manager import DatabaseManager as MySqlDBM
 from database_manager.sqlite_dbm.database_manager import DataBaseManager as SqLiteDBM
