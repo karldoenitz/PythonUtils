@@ -4,7 +4,7 @@ __author__ = "karlvorndoenitz@gmail.com"
 
 
 TypeMapping = {
-    "IntegerField": "INT",
+    "IntegerField": "INTEGER",
     "BooleanField": "BOOLEAN",
     "CharField": "VARCHAR",
     "FloatField": "FLOAT",
@@ -35,6 +35,8 @@ class Field(object):
             create_lan.append("PRIMARY KEY")
         if self.kwargs.get("index"):
             create_lan.append("")
+        if self.kwargs.get("auto_increment"):
+            create_lan.append("AUTOINCREMENT")
         if isinstance(default_val, int) or isinstance(default_val, float):
             value = "DEFAULT %s" % str(default_val)
         elif isinstance(default_val, bool):
@@ -48,14 +50,15 @@ class Field(object):
 
 
 class IntegerField(Field):
-    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False):
+    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False, auto_increment=False):
         super(IntegerField, self).__init__(
             default=default,
             null=null,
             blank=blank,
             prime_key=prime_key,
             index=index,
-            length=length
+            length=length,
+            auto_increment=auto_increment
         )
 
 
