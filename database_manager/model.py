@@ -85,6 +85,16 @@ class Model(object):
         result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
 
+    def all(self):
+        """ get all data from database table
+        
+        :return: data
+        
+        """
+        sql = "SELECT * FROM %s" % self.Meta.table_name
+        result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
+        return result
+
     @classmethod
     def create(cls):
         """ create the table in database
