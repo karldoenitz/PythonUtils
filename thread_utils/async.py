@@ -11,10 +11,16 @@ start a new thread to run the function.
 Usage
 =====
 >>> from thread_utils.async import async
+>>> def print_result(result):
+...     print result
+...
 >>> @async
-... def func_sum(first, second):
-...     print first + second
+... def func_sum(first, second, print_result):
+...     result = first + second
+...     print_result(result)
+...
 >>> func_sum(1, 2)
+3
 
 """
 import threading
