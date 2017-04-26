@@ -67,6 +67,8 @@ class Model(object):
             value = kwargs.get(column_name)
             if isinstance(value, str):
                 value = "'%s'" % value
+            elif isinstance(value, bool):
+                value = "1" if value else "0"
             elif isinstance(value, unicode):
                 value = value.encode("utf-8")
                 value = "'%s'" % value
