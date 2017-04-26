@@ -15,6 +15,11 @@ Usage
 ...     age = IntegerField(default=None, null=True, length=3)
 ...     class Meta:
 ...         table_name = "character"
+... 
+>>> # SELECT * FROM character WHERE age > 10 AND name='Ada Wong';
+>>> for character in Character.object().filter("age>10", name="Ada Wong"):
+...     print character.name, character.age
+...
 
 """
 
@@ -48,15 +53,16 @@ class Model(object):
         else:
             raise Exception
 
-    def filter(self, **kwargs):
+    def filter(self, *args, **kwargs):
         """ filter record from db
         
+        :param args: filter condition
         :param kwargs: filter condition
         :return: result
         
         """
         table_name = self.Meta.table_name
-        condition_list = []
+        condition_list = [] + list(args)
         for column_name in kwargs:
             value = kwargs.get(column_name)
             if isinstance(value, str):
