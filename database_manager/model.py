@@ -79,6 +79,11 @@ class Model(object):
 
     @classmethod
     def create(cls):
+        """ create the table in database
+        
+        :return: True or exception
+        
+        """
         try:
             obj_field_dict = obj_field_to_dict(cls)
             sql = "(%s)" % ",".join([obj_field_dict[key].to_create(key) for key in obj_field_dict])
@@ -87,6 +92,10 @@ class Model(object):
             return True
         except Exception, e:
             raise e
+
+    @classmethod
+    def object(cls):
+        return cls()
 
     class Meta:
         table_name = None
