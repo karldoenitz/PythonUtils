@@ -15,11 +15,11 @@ Usage
 ...     print result
 ...
 >>> @async
-... def func_sum(first, second, print_result):
+... def func_sum(first, second, call_back):
 ...     result = first + second
-...     print_result(result)
+...     call_back(result)
 ...
->>> func_sum(1, 2)
+>>> func_sum(1, 2, print_result)
 3
 
 """
