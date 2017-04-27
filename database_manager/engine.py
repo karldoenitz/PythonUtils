@@ -47,6 +47,7 @@ class Engine(object):
             )
         elif engine_name == EngineName.sqLite:
             self.dbm = SqLiteDBM(kwargs["sqlite"])
+        self.dbm.engine_name = engine_name
 
     def create(self):
         """ get database's database Manager

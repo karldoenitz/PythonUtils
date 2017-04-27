@@ -105,7 +105,9 @@ class Model(object):
         """
         try:
             obj_field_dict = obj_field_to_dict(cls)
-            sql = "(%s)" % ",".join([obj_field_dict[key].to_create(key) for key in obj_field_dict])
+            sql = "(%s)" % ",".join(
+                [obj_field_dict[key].to_create(cls.Meta.engine.engine_name, key) for key in obj_field_dict]
+            )
             create_sql = "CREATE TABLE %s %s" % (cls.Meta.table_name, sql)
             cls.Meta.engine.execute(create_sql)
             for key in obj_field_dict:
