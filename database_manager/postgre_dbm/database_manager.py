@@ -130,7 +130,7 @@ class DatabaseManager(object):
         try:
             if is_insert_id:
                 self.cursor.execute(sql)
-                success_column = int(self.connection.insert_id())
+                success_column = int(self.cursor.lastrowid)
             else:
                 success_column = self.cursor.execute(sql)
             self.connection.commit()
