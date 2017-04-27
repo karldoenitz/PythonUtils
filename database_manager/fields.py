@@ -83,9 +83,10 @@ class Field(object):
         value = ""
         if self.kwargs.get("auto_increment"):
             create_lan.append("SERIAL")
-        if self.kwargs.get("length") and not self.kwargs.get("auto_increment"):
+            return " ".join(create_lan)
+        if self.kwargs.get("length") and tp != "INTEGER":
             create_lan.append(tp + ("(%d)" % self.kwargs.get("length")))
-        elif not self.kwargs.get("auto_increment"):
+        else:
             create_lan.append(tp)
         if self.kwargs.get("null"):
             create_lan.append("NULL")

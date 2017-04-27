@@ -40,10 +40,9 @@ class DatabaseManager(object):
             port=port,
             user=user,
             password=pwd,
-            database=db,
-            cursor_factory=psycopg2.extras.DictCursor
+            database=db
         )
-        self.cursor = self.connection.cursor()
+        self.cursor = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     def query(self, sql):
         """ execute a sql query
