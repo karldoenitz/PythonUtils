@@ -33,8 +33,6 @@ class Field(object):
             create_lan.append("")
         if self.kwargs.get("prime_key"):
             create_lan.append("PRIMARY KEY")
-        if self.kwargs.get("index"):
-            create_lan.append("")
         if self.kwargs.get("auto_increment"):
             create_lan.append("AUTOINCREMENT")
         if isinstance(default_val, int) or isinstance(default_val, float):

@@ -23,6 +23,7 @@ Usage
 
 """
 
+import time
 from utils import object_to_dict, obj_field_to_dict
 
 __author__ = "karlvorndoenitz@gmail.com"
@@ -107,6 +108,11 @@ class Model(object):
             sql = "(%s)" % ",".join([obj_field_dict[key].to_create(key) for key in obj_field_dict])
             create_sql = "CREATE TABLE %s %s" % (cls.Meta.table_name, sql)
             cls.Meta.engine.execute(create_sql)
+            for key in obj_field_dict:
+                if obj_field_dict.get(key).kwargs.get("index"):
+                    index_name = "%s_%d" % (key, time.time()*1000)
+                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)
+                    cls.Meta.engine.execute(create_index_sql)
             return True
         except Exception, e:
             raise e
