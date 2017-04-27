@@ -20,6 +20,7 @@ Usage
 """
 from database_manager.mysql_dbm.database_manager import DatabaseManager as MySqlDBM
 from database_manager.sqlite_dbm.database_manager import DataBaseManager as SqLiteDBM
+from database_manager.postgre_dbm.database_manager import DatabaseManager as PostGreDBM
 
 __author__ = "karlvorndoenitz@gmail.com"
 
@@ -27,6 +28,7 @@ __author__ = "karlvorndoenitz@gmail.com"
 class EngineName(object):
     MySQL = 0
     sqLite = 1
+    PostGre = 2
 
 
 class Engine(object):
@@ -47,6 +49,14 @@ class Engine(object):
             )
         elif engine_name == EngineName.sqLite:
             self.dbm = SqLiteDBM(kwargs["sqlite"])
+        elif engine_name == EngineName.PostGre:
+            self.dbm = PostGreDBM(
+                host=kwargs["host"],
+                port=kwargs["port"],
+                user=kwargs["user"],
+                pwd=kwargs["pwd"],
+                db=kwargs["db"]
+            )
         self.dbm.engine_name = engine_name
 
     def create(self):
