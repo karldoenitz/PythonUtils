@@ -9,7 +9,7 @@ this module supply database engine.
 
 Usage
 =====
->>> from model import Model
+>>> from database_manager.model import Model
 >>> engine = Engine(EngineName.sqLite, sqlite="test.sqlite").create()
 >>> class User(Model):
 ...    class Meta:
@@ -25,8 +25,8 @@ __author__ = "karlvorndoenitz@gmail.com"
 
 
 class EngineName(object):
-    MySQL = "mysql"
-    sqLite = "sqLite"
+    MySQL = 0
+    sqLite = 1
 
 
 class Engine(object):
