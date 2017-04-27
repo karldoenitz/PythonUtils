@@ -130,7 +130,7 @@ class DatabaseManager(object):
         try:
             if is_insert_id:
                 self.cursor.execute(sql)
-                success_column = int(self.cursor.lastrowid)
+                success_column = int(self.cursor.lastrowid)  # bug, doesn't return last id
             else:
                 success_column = self.cursor.execute(sql)
             self.connection.commit()

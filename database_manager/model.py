@@ -113,7 +113,7 @@ class Model(object):
             for key in obj_field_dict:
                 if obj_field_dict.get(key).kwargs.get("index"):
                     index_name = "%s_%d" % (key, time.time()*1000)
-                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)
+                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)  # bug, must judge whether need unique
                     cls.Meta.engine.execute(create_index_sql)
             return True
         except Exception, e:
