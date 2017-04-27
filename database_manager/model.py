@@ -111,9 +111,14 @@ class Model(object):
             create_sql = "CREATE TABLE %s %s" % (cls.Meta.table_name, sql)
             cls.Meta.engine.execute(create_sql)
             for key in obj_field_dict:
-                if obj_field_dict.get(key).kwargs.get("index"):
+                if obj_field_dict.get(key).kwargs.get("index") and obj_field_dict.get(key).kwargs.get("unique"):
                     index_name = "%s_%d" % (key, time.time()*1000)
-                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)  # bug, must judge whether need unique
+                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)
+                    cls.Meta.engine.execute(create_index_sql)
+                elif obj_field_dict.get(key).kwargs.get("index"):
+                    index_name = "%s_%d" % (key, time.time() * 1000)
+                    create_index_sql = "CREATE INDEX %s ON %s (%s)" % (
+                    index_name, cls.Meta.table_name, key)
                     cls.Meta.engine.execute(create_index_sql)
             return True
         except Exception, e:

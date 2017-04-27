@@ -117,7 +117,8 @@ class Field(object):
 
 
 class IntegerField(Field):
-    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False, auto_increment=False):
+    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False,
+                 unique=False, auto_increment=False):
         super(IntegerField, self).__init__(
             default=default,
             null=null,
@@ -125,51 +126,56 @@ class IntegerField(Field):
             prime_key=prime_key,
             index=index,
             length=length,
+            unique=unique,
             auto_increment=auto_increment
         )
 
 
 class BooleanField(Field):
-    def __init__(self, default, null=False, blank=False, prime_key=False, index=False):
+    def __init__(self, default, null=False, blank=False, prime_key=False, index=False, unique=False):
         super(BooleanField, self).__init__(
             default=default,
             null=null,
             blank=blank,
             prime_key=prime_key,
-            index=index
+            index=index,
+            unique=unique
         )
 
 
 class CharField(Field):
-    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False):
+    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False, unique=False):
         super(CharField, self).__init__(
             default=default,
             null=null,
             blank=blank,
             prime_key=prime_key,
             index=index,
-            length=length
+            length=length,
+            unique=unique
         )
 
 
 class FloatField(Field):
-    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False):
+    def __init__(self, default, length, null=False, blank=False, prime_key=False, index=False, unique=False):
         super(FloatField, self).__init__(
             default=default,
             null=null,
             blank=blank,
             prime_key=prime_key,
             index=index,
-            length=length
+            length=length,
+            unique=unique
         )
 
 
 class TextField(Field):
-    def __init__(self, default, null=False, blank=False, prime_key=False, index=False):
+    def __init__(self, default, null=False, blank=False, prime_key=False, index=False, unique=False):
         super(TextField, self).__init__(
             default=default,
             null=null,
             blank=blank,
             prime_key=prime_key,
-            index=index
+            index=index,
+            unique=unique
         )
