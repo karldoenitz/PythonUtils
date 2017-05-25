@@ -86,7 +86,7 @@ class DataBaseManager(object):
         self.logger.info(json.dumps(record_dict, ensure_ascii=False))
         sql_template = "INSERT INTO %s (%s) VALUES (%s)"
         column_name_list = record_dict.keys()
-        column_names = ",".join(column_name_list)
+        column_names = ",".join(["`%s`" % key for key in column_name_list])
         value_list = []
         for column_name in column_name_list:
             value = record_dict.get(column_name)
