@@ -10,7 +10,7 @@ this module contains some utils, convert image to webpack, upload file to fds.
 Usage
 =====
 >>> upload_file_to_fds("/tmp/splash.png")
-http://127.0.0.1:9203//10007/0/ce1dc201a670c527c67d46ba991d13a7.webp
+{'url': u'http://image.cdn.pandora.xiaomi.com/mitv/10007/0/6c3dac28316cb2b3d64182255d2c5533.webp', 'md5': u'6c3dac28316cb2b3d64182255d2c5533'}
 
 """
 import Image
