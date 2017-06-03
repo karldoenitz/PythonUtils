@@ -64,11 +64,13 @@ def upload_file_to_fds(file_path, file_type=None, fds_url=None, mode_webp=True):
                 ext = 'webp'
         except Exception as e:
             logging.error("Convert image [%s] to webp failed, Reason: %s" % (file_path, str(e)))
-    except:
+    except Exception as e:
+        logging.error("get file type error: %s" % str(e))
         return None
     try:
         upload_url = (fds_url or FDS_PROXY_URL) % (urllib.quote(file_path), ext)
-    except:
+    except Exception as e:
+        logging.error("upload url error: %s" % str(e))
         return None
     print "uploading", upload_url, "to FDS"
     nb_retries = 0
