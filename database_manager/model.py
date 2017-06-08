@@ -86,6 +86,51 @@ class Model(object):
         result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
 
+    def update(self, *args, **kwargs):
+        """ update record in db
+
+        :param args: filter condition
+        :param kwargs: filter condition
+        :return: result
+
+        """
+        attr_dict = object_to_dict(self)
+        value_list = []
+        for key in attr_dict:
+            value = attr_dict[key]
+            if isinstance(value, str):
+                value = "'%s'" % value
+            elif isinstance(value, unicode):
+                value = value.encode("utf-8")
+                value = "'%s'" % value
+            elif value is None:
+                value = "NULL"
+            else:
+                value = str(value)
+            value_list.append("%s=%s" % (key, value))
+        table_name = self.Meta.table_name
+        condition_list = [] + list(args)
+        for column_name in kwargs:
+            value = kwargs.get(column_name)
+            if isinstance(value, str):
+                value = "'%s'" % value
+            elif isinstance(value, bool):
+                value = "1" if value else "0"
+            elif isinstance(value, unicode):
+                value = value.encode("utf-8")
+                value = "'%s'" % value
+            elif value is None:
+                value = "NULL"
+            else:
+                value = str(value)
+            condition_list.append("%s=%s" % (column_name, value))
+        if condition_list:
+            condition = " WHERE " + " AND ".join(condition_list)
+        else:
+            condition = ""
+        sql = "UPDATE %s SET %s %s" % (table_name, ",".join(value_list), condition)
+        return self.Meta.engine.execute(sql)
+
     def all(self):
         """ get all data from database table
         
