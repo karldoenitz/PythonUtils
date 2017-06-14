@@ -1,6 +1,26 @@
 # -*-coding:utf-8-*-
 """
 
+logger
+~~~~~~
+
+introduction
+use this model to print log into a file.
+
+Usage
+=====
+>>> logger = init_logger(config_path=None)
+>>> # a.py
+>>> logger.info("test a.py")
+>>> # b.py
+>>> logger.info("test b.py")
+>>> # c.py
+>>> logger = get_logger("module_c")
+>>> logger.info("test module_c")
+>>> # d.py
+>>> logger = get_logger("module_d")
+>>> logger.info("test module_d")
+
 """
 import os
 import logging
