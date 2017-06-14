@@ -126,6 +126,8 @@ class Model(object):
             condition_list.append("%s=%s" % (column_name, value))
         if condition_list:
             condition = " WHERE " + " AND ".join(condition_list)
+        elif hasattr(self, "id") and getattr(self, "id"):
+            condition = " WHERE id=%s" % str(getattr(self, "id"))
         else:
             condition = ""
         sql = "UPDATE %s SET %s %s" % (table_name, ",".join(value_list), condition)
@@ -140,6 +142,38 @@ class Model(object):
         sql = "SELECT * FROM %s" % self.Meta.table_name
         result = self.Meta.engine.query_obj(sql, self.__class__.__name__)
         return result
+
+    def delete(self, *args, **kwargs):
+        """ delete from table
+
+        :param args: delete condition
+        :param kwargs: delete condition
+        :return: de
+
+        """
+        condition = ""
+        if kwargs:
+            condition_list = [] + list(args)
+            for column_name in kwargs:
+                value = kwargs.get(column_name)
+                if isinstance(value, str):
+                    value = "'%s'" % value
+                elif isinstance(value, bool):
+                    value = "1" if value else "0"
+                elif isinstance(value, unicode):
+                    value = value.encode("utf-8")
+                    value = "'%s'" % value
+                elif value is None:
+                    value = "NULL"
+                else:
+                    value = str(value)
+                condition_list.append("%s=%s" % (column_name, value))
+            condition += ", ".join(condition_list)
+        if condition:
+            sql = "DELETE FROM %s WHERE %s" % (self.Meta.table_name, condition)
+        else:
+            sql = "DELETE FROM %s WHERE id=%d" % (self.Meta.table_name, self.id)
+        return self.Meta.engine.execute(sql)
 
     @classmethod
     def create(cls):
