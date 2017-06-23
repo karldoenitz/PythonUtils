@@ -191,11 +191,9 @@ class Model(object):
             cls.Meta.engine.execute(create_sql)
             for key in obj_field_dict:
                 index_name = "%s_%d" % (key, time.time()*1000)
-                if obj_field_dict.get(key).kwargs.get("index") and obj_field_dict.get(key).kwargs.get("unique"):
-                    create_index_sql = "CREATE UNIQUE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)
-                    cls.Meta.engine.execute(create_index_sql)
-                elif obj_field_dict.get(key).kwargs.get("index"):
-                    create_index_sql = "CREATE INDEX %s ON %s (%s)" % (index_name, cls.Meta.table_name, key)
+                if obj_field_dict.get(key).kwargs.get("index"):
+                    unique = "UNIQUE" if obj_field_dict.get(key).kwargs.get("unique") else ""
+                    create_index_sql = "CREATE %s INDEX %s ON %s (%s)" % (unique, index_name, cls.Meta.table_name, key)
                     cls.Meta.engine.execute(create_index_sql)
             return True
         except Exception, e:
