@@ -23,4 +23,10 @@ bool modify_bool(bool input){
         return true;
 }
 
+// array
+// pointer float
+// pointer char
+// structure
+// ref &
+// *&
 }
