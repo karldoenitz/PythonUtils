@@ -23,8 +23,20 @@ bool modify_bool(bool input){
         return true;
 }
 
-// array
-// pointer float
+int sum_array(int array[], int size){
+    int sum = 0;
+    for(int i=0; i<size; i++){
+        sum += array[i];
+    }
+    return sum;
+}
+
+float *sum_float_pointer(float *f, int size){
+    for(int i=0; i<size; i++){
+        f[i] += 0.09;
+    }
+    return f;
+}
 // pointer char
 // structure
 // ref &

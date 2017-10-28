@@ -42,9 +42,33 @@ def test_bool(input_val):
     return modify_bool(input_val)
 
 
+def test_pass_array(list_val):
+    size = len(list_val)
+    array_obj = c_int * size
+    array = array_obj(*list_val)
+    sum_array = lib.sum_array
+    sum_array.argtypes = [array_obj, c_int]
+    sum_array.restype = c_int
+    return sum_array(array, size)
+
+
+def test_pass_float_pointer(list_val):
+    size = len(list_val)
+    float_pointer_type = POINTER(c_float)
+    float_array_type = c_float * size
+    float_array = float_array_type(*list_val)
+    sum_float_pointer = lib.sum_float_pointer
+    sum_float_pointer.argtypes = [float_pointer_type, c_int]
+    sum_float_pointer.restype = float_pointer_type
+    result = sum_float_pointer(float_array, size)
+    return map(float, ["%.2f" % result[index] for index in range(0, size)])
+
+
 if __name__ == '__main__':
     print test_int(12, 35)
     print test_float(123.456789, 3.579)
     print test_double(1.23456789, 3.579)
     print test_char("A")
     print test_bool(True)
+    print test_pass_array([1, 2, 3, 4, 5])
+    print test_pass_float_pointer([1.1, 2.2, 3.3, 4.4, 5.5])
