@@ -37,6 +37,13 @@ float *sum_float_pointer(float *f, int size){
     }
     return f;
 }
+
+char *upper_char_array(char *array, int size){
+    for(int i=0; i<size; i++){
+        array[i] -= 32;
+    }
+    return array;
+}
 // pointer char
 // structure
 // ref &
