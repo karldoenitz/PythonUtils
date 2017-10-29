@@ -53,8 +53,5 @@ void modify_array(int &e, int *&f)
         f[i]=i;
 }
 
-// pointer char
 // structure
-// ref &
-// *&
 }
