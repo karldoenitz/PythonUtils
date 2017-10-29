@@ -44,6 +44,15 @@ char *upper_char_array(char *array, int size){
     }
     return array;
 }
+
+void modify_array(int &e, int *&f)
+{
+    e=10;
+    f=new int[e];
+    for(int i=0;i<e;i++)
+        f[i]=i;
+}
+
 // pointer char
 // structure
 // ref &

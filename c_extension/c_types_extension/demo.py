@@ -72,6 +72,16 @@ def test_upper_string(input_string):
     return upper_char_array(c_char_p(input_string), size)
 
 
+def test_modify_array():
+    size = c_int()
+    array = pointer(c_int())
+    lib.modify_array(
+        byref(size),
+        byref(array)
+    )
+    return [array[index] for index in range(0, size.value)]
+
+
 if __name__ == '__main__':
     print test_int(12, 35)
     print test_float(123.456789, 3.579)
@@ -81,3 +91,4 @@ if __name__ == '__main__':
     print test_pass_array([1, 2, 3, 4, 5])
     print test_pass_float_pointer([1.1, 2.2, 3.3, 4.4, 5.5])
     print test_upper_string("abcdefghijklmnopqrstuvwxyz")
+    print test_modify_array()
