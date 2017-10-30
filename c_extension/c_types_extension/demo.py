@@ -7,6 +7,14 @@ from ctypes import *
 lib = ctypes.CDLL("./demo.so")
 
 
+class Score(Structure):
+    _fields_ = [
+        ("math", c_float),
+        ("national_language", c_float),
+        ("english", c_float)
+    ]
+
+
 def test_int(first, second):
     sum_int = lib.sum_int
     sum_int.argtypes = [c_int, c_int]
@@ -82,6 +90,13 @@ def test_modify_array():
     return [array[index] for index in range(0, size.value)]
 
 
+def test_sum_score(input_score):
+    sum_score = lib.sum_score
+    sum_score.argtypes = [POINTER(Score)]
+    sum_score.restype = c_float
+    return sum_score(pointer(input_score))
+
+
 if __name__ == '__main__':
     print test_int(12, 35)
     print test_float(123.456789, 3.579)
@@ -92,3 +107,13 @@ if __name__ == '__main__':
     print test_pass_float_pointer([1.1, 2.2, 3.3, 4.4, 5.5])
     print test_upper_string("abcdefghijklmnopqrstuvwxyz")
     print test_modify_array()
+    # 1
+    data = {"math": 100, "national_language": 99, "english": 99.5}
+    score = Score(**data)
+    print test_sum_score(score)
+    # 2
+    score = Score()
+    score.math = 100
+    score.national_language = 99.5
+    score.english = 99.5
+    print test_sum_score(score)
