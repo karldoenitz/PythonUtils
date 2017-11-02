@@ -36,7 +36,7 @@ static PyMethodDef wrap_methods[] ={
         {NULL, NULL}                   /* end of table marker */
 };
 
-/* module initializer */
+/* module initializer 注意此处，init后面必须与文件名相同！！！*/
 PyMODINIT_FUNC initdemo(void)                       /* called on first import */
 {                                      /* name matters if loaded dynamically */
     (void)Py_InitModule("demo", wrap_methods);   /* mod name, table ptr */
