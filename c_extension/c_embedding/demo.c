@@ -30,9 +30,24 @@ static PyObject *wrap_pass_parameters(PyObject *self, PyObject *args) {
     return result;
 }
 
+static PyObject *wrap_pass_obj(PyObject *self, PyObject *args) {
+    PyObject *instance_object;
+    if (!PyArg_ParseTuple(args, "O", &instance_object)) {
+        return NULL;
+    }
+    PyObject *first_attribute = PyObject_GetAttrString(instance_object, "first");
+    PyObject *second_attribute = PyObject_GetAttrString(instance_object, "second");
+    double first_num = PyFloat_AsDouble(first_attribute);
+    double second_num = PyFloat_AsDouble(second_attribute);
+    double sum = first_num + second_num;
+    PyObject *result = Py_BuildValue("f", sum);
+    return result;
+}
+
 /* registration table  */
 static PyMethodDef wrap_methods[] ={
         {"pass_parameters", wrap_pass_parameters, METH_VARARGS},       /* method name, C func ptr, always-tuple */
+        {"pass_obj", wrap_pass_obj, METH_VARARGS},       /* method name, C func ptr, always-tuple */
         {NULL, NULL}                   /* end of table marker */
 };
 

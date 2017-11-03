@@ -1,9 +1,9 @@
 from setuptools import setup, Extension
 
 setup(
-    name='sum_num_demo',
+    name='c_embedding',
     version='0.0.1',
-    packages=['sum_num_demo'],
+    packages=['c_embedding'],
     url='',
     license='',
     author='karl',
@@ -11,8 +11,8 @@ setup(
     description='test encryption for karlooper',
     ext_modules=[
         Extension(
-            'sum_num_demo.demo',
-            sources=['sum_num_demo/demo.c'],
+            'c_embedding.demo',
+            sources=['c_embedding/demo.c'],
             extra_compile_args=["-Wno-char-subscripts"]
         )
     ]
