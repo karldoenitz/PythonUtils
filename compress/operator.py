@@ -5,7 +5,8 @@ operator
 ~~~~~~~~
 
 introduction
-use this module to compress folder to *.tar.gz.
+use this module to compress folder to *.tar.gz *.tar *.zip.
+or compile py file to pyc file and then compress the files to *.tar.gz *.tar *.zip.
 
 Usage
 =====
