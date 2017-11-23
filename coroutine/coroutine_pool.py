@@ -1,5 +1,35 @@
 # -*-encoding:utf-8-*-
+"""
 
+coroutine_pool
+~~~~~~~~~~~~~~
+
+introduction
+this module is a decorator for method
+
+Usage
+=====
+>>> from coroutine import koroutine
+>>> @koroutine
+... def test_co_routine_1():
+...     yield "first yield in test_co_routine_1"
+...     yield "second yield in test_co_routine_1"
+...
+>>> @koroutine
+... def test_co_routine_2():
+...     yield "first yield in test_co_routine_2"
+...     yield "second yield in test_co_routine_2"
+...
+>>> for i in xrange(2):
+...     print test_co_routine_1()
+...     print test_co_routine_2()
+...
+first yield in test_co_routine_1
+first yield in test_co_routine_2
+second yield in test_co_routine_1
+second yield in test_co_routine_2
+
+"""
 import functools
 
 
