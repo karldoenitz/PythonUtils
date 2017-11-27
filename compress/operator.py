@@ -16,10 +16,20 @@ Usage
 >>> compress_operator.package_pyc(without=["/."])
 
 """
+import StringIO
+import gzip
 import os
 import py_compile
 import tarfile
 import zipfile
+
+
+def gzip_str(input_string):
+    out = StringIO.StringIO()
+    with gzip.GzipFile(fileobj=out, mode="w") as f:
+        f.write(input_string)
+    out_put = out.getvalue()
+    return out_put
 
 
 class CompressOperator(object):
