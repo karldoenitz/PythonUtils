@@ -2,7 +2,7 @@
 """
 
 utils
-~~~~~~
+~~~~~
 
 introduction
 this module contains some utils such as dict_to_object etc.
