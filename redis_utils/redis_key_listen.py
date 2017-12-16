@@ -7,10 +7,11 @@ redis_key_listen
 introduction
 this module listen key space whether modified in redis.
 
-Usage
-=====
 input this command into console
 $ redis-cli config set notify-keyspace-events KEA
+
+Usage
+=====
 >>> import redis
 >>> import time
 >>> redis_settings = {
