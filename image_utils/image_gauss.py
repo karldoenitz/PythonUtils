@@ -79,7 +79,7 @@ class ImageConverter(object):
                 color = origin_image.getpixel((i, origin_image.height-1))
                 colored_image = Image.new(mode="RGB", size=(1, slide_image.height), color=color)
                 slide_image.paste(colored_image, (i, 0))
-        slide_image.filter(GaussianBlur(radius=15))
+        slide_image = slide_image.filter(GaussianBlur(radius=15))
         return slide_image
 
     @classmethod
