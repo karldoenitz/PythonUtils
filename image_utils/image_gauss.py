@@ -48,7 +48,9 @@ class GaussianBlur(ImageFilter.Filter):
 
 
 class ImageConverter(object):
-
+    """
+    图片转换，将横版图片转换为竖版图片，或将竖版图片转换为横版图片，边远地区填充模糊色
+    """
     @classmethod
     def generate_slide_image(cls, origin_image, slide_image, slide):
         """ 生成边缘图片
@@ -106,15 +108,15 @@ class ImageConverter(object):
             image.paste(slide_images[1], (0, slide_images[0].height + origin_image.height))
         return image
 
-    def generate_image(self, image_path, des_ratio):
+    def generate_image(self, image_input, des_ratio):
         """ 生成带有高斯模糊的拓补图片
 
-        :param image_path: 图片地址
+        :param image_input: 图片地址或图片对象
         :param des_ratio: 图片调整之后的宽高比
         :return: 生成的图片的Image对象
 
         """
-        image = Image.open(image_path)
+        image = Image.open(image_input)
         width, height = image.width, image.height
         if (width/height < 1 and des_ratio < 1) or (width/height > 1 and des_ratio > 1) or (width/height == des_ratio):
             return False

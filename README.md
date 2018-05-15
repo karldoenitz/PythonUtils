@@ -7,6 +7,7 @@ some utils for python
 ├── compress          压缩工具
 ├── coroutine         协程
 ├── database_manager  数据库操作
+├── image_utils       图像处理工具
 ├── logger            日志操作
 ├── redis_utils       redis工具
 ├── string_utils      字符串操作
