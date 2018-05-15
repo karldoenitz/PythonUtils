@@ -1,5 +1,24 @@
 # -*- coding: utf-8 -*-
+"""
 
+verify_code
+~~~~~~~~~~~
+
+introduction
+使用该模块生成验证码
+
+Usage
+=====
+>>> import io
+>>> from image_utils import VerifyCodeGenerator
+>>> font_path='/usr/share/fonts/windows-fonts/仿宋_GB2312'
+>>> generator = VerifyCodeGenerator(font_path)
+>>> img_obj, text = generator.gene_code()
+>>> buf = io.StringIO()
+>>> img_obj.save(buf, 'png')
+>>> http_response_value = img_obj.getvalue()
+
+"""
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
