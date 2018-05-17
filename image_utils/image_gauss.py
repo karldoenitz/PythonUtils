@@ -32,7 +32,7 @@ class GaussianBlur(ImageFilter.Filter):
         """
 
         :param radius: 模糊半径
-        :param bounds: 模糊边界
+        :param bounds: 模糊边界，元组类型，(左, 上, 右, 下)
 
         """
         self.radius = radius
