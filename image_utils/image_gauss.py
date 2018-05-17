@@ -6,11 +6,17 @@ image_gauss
 
 introduction
 使用此模块改变原图片的尺寸，主要是实现横版和竖版的转换，图片从横版变竖版需要上下拼接填充高斯模糊的图片，竖版变横版则需要左右拼接。
+也可使用此模块对图片进行高斯模糊。
 
 Usage
 =====
+>>> # 对图片进行拓补
 >>> from image_utils import ImageConverter
->>> image = ImageConverter().generate_image(image_path="/path/to/origin_image.jpg", des_ratio=1.6)
+>>> image = ImageConverter().generate_image(image_input="/path/to/origin_image.jpg", des_ratio=1.6)
+>>> image.save("/path/to/result.jpg")
+>>> # 对图片进行高斯模糊
+>>> image = Image.open("/path/to/origin_image.jpg")
+>>> image = image.filter(GaussianBlur(radius=15))
 >>> image.save("/path/to/result.jpg")
 
 """
